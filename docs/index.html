@@ -1,0 +1,772 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>SORACOM Arc &amp; 仮想IoTボタン ハンズオンテキスト</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="soracom-arc-v-button-handson"
+                  title="SORACOM Arc &amp; 仮想IoTボタン ハンズオンテキスト"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="ハンズオンを始める前に" duration="0">
+        <h2 is-upgraded>前提</h2>
+<ul>
+<li>PC (Windows/Mac OS、ブラウザはChrome、もしくは Firefoxをインストールしておいてください)</li>
+<li>SORACOMアカウント</li>
+<li>SORACOMアカウントの作成手順は<a href="https://soracom.github.io/iot-recipes/create-account-soracom-jp/#0" target="_blank">こちら</a></li>
+<li>LINEのアカウント(メールアドレスとパスワードの登録をお願いします</li>
+<li>登録手順は<a href="https://guide.line.me/ja/account-and-settings/account-and-profile/set-email-address.html" target="_blank">こちら</a>)</li>
+</ul>
+<h2 is-upgraded>構成図</h2>
+<p class="image-container"><img style="width: 601.70px" src="img/7687d3f250eaafea.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="利用するサービスについて" duration="0">
+        <h2 is-upgraded>SORACOM Arcについて</h2>
+<p>今回のハンズオンでは、「セキュアリンクサービス SORACOM Arc」(以下、Arc)を用いてみなさんのPCをSORACOMサービスに接続します。</p>
+<p>Arcについて詳しくは以下の公式ページを参照ください。<br><br><a href="https://soracom.jp/services/arc/" target="_blank">https://soracom.jp/services/arc/</a></p>
+<p>PCでArcを使うには以下の2つの方法があります。</p>
+<ul>
+<li>公式ツール「soratun」を用いる(Linux/Mac)</li>
+<li>WireGuardを用いる(Windows/Mac/Android/iOSなど)</li>
+</ul>
+<p>今回は、WireGuardを用いて接続をします。</p>
+<h3 is-upgraded>利用料金</h3>
+<p>Arcの利用料金は以下の通りです。</p>
+<ul>
+<li>初期費用(契約事務手数料)<br>1 バーチャル SIM/Subscriber あたり 55 円</li>
+<li>基本使用料(月額)<br>1 バーチャル SIM/Subscriber あたり</li>
+<li>55 円 (SORACOM IoT SIM に追加する場合)</li>
+<li>88 円 (バーチャル SIM/Subscriber 単独で利用する場合)</li>
+<li>データ通信料<br>1 バーチャル SIM/Subscriber ごとに 1 GB あたり 22 円<br>SORACOM プラットフォームへのデータ通信量に応じて料金が発生します。<br>上り、下りの合計となります。ただし、毎月 1GB までは基本料金に含みます。</li>
+<li>無料利用枠<br>1 アカウントあたりバーチャル SIM/Subscriber 1契約分の基本使用料(月額)、1GB 分のデータ通信料が無料枠として提供されます。<br>なお、1 アカウントあたり 1 回に限り、バーチャル SIM/Subscriber の初期費用が無料となります。</li>
+</ul>
+<p>今回のハンズオンでは、ほとんどの方は初めてバーチャルSIMを作成することになりますので、無料枠の中でご利用いただけます。</p>
+<p>また、ハンズオン終了後にバーチャルSIMを解約しないでも、翌月以降費用が発生することもありません。作成時の初期費用が無料になるのも最初の1回だけなので、そのまま残しておくのをお勧めします。</p>
+<h3 is-upgraded>WireGuardについて</h3>
+<p>WireGuardはオープンソースのVPN実装です。OpenVPNやIPsec等に比べ、セットアップが非常に容易で、パフォーマンスにも優れているという特徴があります。</p>
+<p>Linuxのカーネルモジュールでの実装の他に、アプリケーション(ユーザー空間)での実装があります。</p>
+<p>詳細は公式ページをご覧ください。<br><a href="https://www.wireguard.com/install/" target="_blank">https://www.wireguard.com/</a></p>
+<h2 is-upgraded>SORACOM Beamについて</h2>
+<p>今回のハンズオンでは、「データ転送サービス SORACOM Beam」(以下、Beam)を用いてOrbitで加工したボタンから受信データをLine Notifyに転送します。</p>
+<p>Beamについて詳しくは以下の公式ページを参照ください。<br><br><a href="https://soracom.jp/services/arc/" target="_blank">https://soracom.jp/services/beam/</a></p>
+<h3 is-upgraded>利用料金</h3>
+<p>Beamの利用料金は以下の通りです。</p>
+<ul>
+<li>基本料金<br>無料</li>
+<li>従量課金</li>
+</ul>
+<p>1 リクエスト(*) あたり 0.00099 円</p>
+<p>※エントリーポイント (Beam) へのリクエスト、Beamから転送先へのリクエスト、それぞれを個別に 1 リクエストとカウントします。</p>
+<ul>
+<li>無料利用枠<br>SORACOM Beam は、無料利用枠をご提供しています。 1アカウントあたり月間 100,000 リクエストまで毎月無料とさせていただきます。 なお、リクエスト数が 100,000 リクエストに満たない場合でも翌月に持ち越されることはありません。</li>
+</ul>
+<p>今回のハンズオンでは、それぞれ個別のアカウントで作業を行い、リクエストも通常であれば100,000リクエストには達しませんので、無料枠の中でご利用いただけます。</p>
+<h2 is-upgraded>SORACOM Harvestについて</h2>
+<p>今回のハンズオンでは、「データ収集・可視化サービス SORACOM Harvest」(以下Harvest)を用いてボタンから受信したデータを可視化します。<br>Harvest自体は、データの蓄積(Harvest Data)とファイルの保存(Harvest Files)の2つがありますが、今回は、Harvest Dataのみ扱います。</p>
+<p>アップロードされたデータは標準で40日間保存されます。</p>
+<p>Harvestについて詳しくは以下の公式ページを参照ください。<br><br>https://soracom.jp/services/harvest/</p>
+<h3 is-upgraded>利用料金</h3>
+<p>Harvestの利用料金は以下の通りです。</p>
+<ul>
+<li>Harvest 利用オプション<br>Harvest を有効にしたグループに所属する 1 SIM カードまたは 1 デバイスあたり 1 日 5.5 円</li>
+<li>従量課金</li>
+</ul>
+<p>書き込みリクエスト: 1 リクエストあたり 0.0044 円 </p>
+<ul>
+<li>1 SIM カード / デバイスあたり 1 日 2,000 リクエストまでの料金は上記の「Harvest 利用オプション」の料金内に含まれます。 2,001 回目のリクエストから課金対象です。</li>
+<li>無料利用枠<br>SORACOM Harvest は無料利用枠をご提供しています。</li>
+</ul>
+<p>1 アカウントあたり毎月 31 日 分の「Harvest 利用オプション」が無料です。（月末締めで自動で計算されます。）</p>
+<ul>
+<li>2 つの SIM カード / デバイスで 15 日だけ利用した場合なども合計で 31 日以内なので無料利用枠の対象です。</li>
+<li>無料利用枠内で利用している場合でも、書き込みが 1 日 2,000 リクエストを超えた分は従量課金が発生します。</li>
+<li>月内の利用日の合計が 31 日以内でも無料利用枠が翌月に持ち越されることはありません。</li>
+</ul>
+<p>今回のハンズオンでは、仮想SIM１つを用い、書き込みも通常であれば2,000リクエストには達しませんので、無料枠の中でご利用いただけます。</p>
+<h2 is-upgraded>SORACOM Orbitについて</h2>
+<p>今回のハンズオンでは、「インラインプロセッシングサービス SORACOM Orbit」(以下Orbit)を用いてボタンから受信したデータを加工します。</p>
+<p>今回は、時間の都合上事前に用意したWASMを用います。</p>
+<p>Appendixとして、開発環境構築、コード準備、ビルドを行う方法も記載しておりますので、興味がある方はそちらも合わせて行なってください。<br></p>
+<p>Orbitについて詳しくは以下の公式ページを参照ください。<br><br><a href="https://soracom.jp/services/arc/" target="_blank">https://soracom.jp/services/orbit/</a></p>
+<h3 is-upgraded>利用料金</h3>
+<p>Orbitの利用料金は以下の通りです。</p>
+<ul>
+<li>利用料金<br>Orbitを利用したSIMの数に応じて、料金が発生します。</li>
+</ul>
+<p>SIM 毎に 22 円/月</p>
+<ul>
+<li>リクエスト料金</li>
+</ul>
+<p>オペレーター単位にリクエスト数の合計数に応じて料金が発生します</p>
+<p>        10,000 リクエストあたり 44 円</p>
+<ul>
+<li>無料利用枠<br>SORACOM Orbit は無料利用枠をご提供しています。 1 アカウント、カバレッジごとに、以下の無料利用枠をご提供いたします。</li>
+<li>無料利用枠: 1SIM分</li>
+<li>リクエスト無料利用枠: 10,000リクエスト分</li>
+</ul>
+<p>今回のハンズオンでは、仮想SIM１つを用い、リクエストも通常であれば10,000リクエストには達しませんので、無料枠の中でご利用いただけます。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Line Notify用のトークン取得" duration="0">
+        <h2 is-upgraded>LINE Notifyにログイン</h2>
+<p>Tokenを取得するために、Line Nofityにログインします。</p>
+<ol type="1" start="1">
+<li><a href="https://notify-bot.line.me/ja/" target="_blank">https://notify-bot.line.me/ja/</a> にアクセスします。</li>
+<li>右上の[ログイン]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/dc833b602f982dc0.png"></p>
+<ol type="1" start="3">
+<li>LINEに登録済みのメールアドレスとパスワードを入力してログインします。</li>
+</ol>
+<p class="image-container"><img style="width: 338.50px" src="img/794688a761352083.png"></p>
+<h2 is-upgraded>トークン取得</h2>
+<p>ログインしたらトークンを取得します。なお、ここで発行したトークンは同じものは再発行できないので、無くなさないようにお願いします。</p>
+<ol type="1" start="1">
+<li>右上のアカウント名が表示されているところをクリックして、[マイページ ]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 265.00px" src="img/6eecc8f14d784bd6.png"></p>
+<ol type="1" start="2">
+<li>アクセストークンの発行(開発者向け)の[トークンを発行する]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/ed581b36971b307d.png"></p>
+<ol type="1" start="3">
+<li>トークンを発行するでは、以下の設定を行います。</li>
+</ol>
+<ol type="1" start="1">
+<li>トークン名 : soracom-handson</li>
+<li>通知を送信するトークルーム : 1:1でLINE Notifyから通知を受け取る</li>
+</ol>
+<p class="image-container"><img style="width: 407.50px" src="img/d6c66d894ea12fb8.png"></p>
+<ol type="1" start="4">
+<li>[発行する]をクリックします。トークンが発行されます。</li>
+</ol>
+<p class="image-container"><img style="width: 397.50px" src="img/879d11fa57ba71ef.png"></p>
+<ol type="1" start="5">
+<li>前述のとおり、発行されたトークンはここでしか取得できませんので、必ずコピー([コピー]をクリック)して、テキストファイルなどにコピーしておきます。</li>
+</ol>
+<h2 is-upgraded>トラブルシューティング</h2>
+<ol type="1" start="1">
+<li>ログインできない。</li>
+</ol>
+<ol type="1" start="1">
+<li><a href="https://guide.line.me/ja/account-and-settings/account-and-profile/set-email-address.html" target="_blank">https://guide.line.me/ja/account-and-settings/account-and-profile/set-email-address.html</a> を参考に、再度LINEアプリでメールアドレスとパスワードの設定をお願いします。</li>
+<li>トークンをコピーするのを忘れてしまった。</li>
+</ol>
+<ol type="1" start="1">
+<li>再発行できないので、再度トークンの発行の手順を行ってください。</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="SORACOM Arcセットアップ" duration="0">
+        <h2 is-upgraded>ダウンロード</h2>
+<p>以下のURLからダウンロードしてインストールします。</p>
+<p><a href="https://www.wireguard.com/install/" target="_blank">https://www.wireguard.com/install/</a></p>
+<h2 is-upgraded>バーチャルSIMの作成</h2>
+<p>次に、SORACOMのコンソールからArcのバーチャルSIMを作成します。</p>
+<ol type="1" start="1">
+<li>SORACOMのコンソールにログインします。<br><a href="https://console.soracom.io" target="_blank">https://console.soracom.io</a> にアクセスすると以下のような画面が表示されます。メールアドレスとパスワードを入れ、「ログイン」ボタンを押します。<br><img style="width: 601.70px" src="img/e2524c2334bebf0c.png"></li>
+<li>正常にログインできると、多くの方は最初に以下のようにSIM管理の画面が表示されます。まだSIMをお持ちで無い場合は、一覧の部分は空欄になります。<br><br><img style="width: 601.70px" src="img/545317cbb12d218f.png"><br><br>もしこの画面が表示されない場合は、左上の「Menu」から「SORACOM Air forセルラー」を選んでください。<br><img style="width: 601.70px" src="img/4a2fcf9aefe13157.png"><br><br><strong>【注意！】<br>このSIM管理画面に「サブスクリプションコンテナに対応した新しい SIM 管理画面がご利用いただけます。」と表示されている場合は、横の「切り替える」ボタンを押してください。<br><br></strong><img style="width: 601.70px" src="img/b4e126d77a418ba5.png"><br><br>切り替え後の画面には「サブスクリプションコンテナに対応した新しい SIM 管理画面をご利用中です。」と表示されます。</li>
+<li>左上の「SIM登録」を押します。<br><img style="width: 601.70px" src="img/802bf5b7d47ad1b9.png"></li>
+<li>以下のようにSIM登録画面が表示されるので、「バーチャルSIMを登録」を押します。<br><img style="width: 601.70px" src="img/1ae0aacff88c78c8.png"></li>
+<li>「登録」を押します。<br><img style="width: 601.70px" src="img/811e28e15fff6475.png"></li>
+<li>「以下のWireGuard接続情報をデバイスに設定してください。」と表示されている内容を保存しておきます。<br>「コピー」ボタンを押すことでクリップボードにコピーすることができますので、テキストエディッタなどに貼り付けて保存しておきましょう。<br><img style="width: 601.70px" src="img/51d0105342614e68.png"></li>
+</ol>
+<h2 is-upgraded>WireGuardの設定</h2>
+<ol type="1" start="1">
+<li>インストールしていたWireGuardを起動し、「トンネルの追加」から「空のトンネルを追加」を選びます。<br><img style="width: 601.70px" src="img/f4f13020d8bff1d6.png"><br>[Windowsの場合]<br><br><img style="width: 601.70px" src="img/2cdbbdd1ae40bfb4.png"><br>[Macの場合]</li>
+<li>先ほどバーチャルSIMを作成したときに表示され、保存しておいたWireGuardの設定を貼り付け、名前を付けて「保存」を押します。<br><img style="width: 601.70px" src="img/aae1def058916ecd.png"><br>[Windowsの場合]<br><br><img style="width: 601.70px" src="img/1b77867864780373.png"><br>[Macの場合]<br>Macだと保存時に警告が出る場合がありますが、「許可」を押してください。<br><img style="width: 520.00px" src="img/f2823ed17c1e336.png"></li>
+<li>これで設定は完了です。<br><img style="width: 601.70px" src="img/db04eab5f038af34.png"></li>
+</ol>
+<h2 is-upgraded>接続と動作確認</h2>
+<ol type="1" start="1">
+<li>「有効化」を押して、SORACOMプラットホームに接続してみます。<br><img style="width: 601.70px" src="img/6a4c6421523d0343.png"><br>[Windowsの場合]<br><br><img style="width: 601.70px" src="img/abec088b4f487bbf.png"><br>[Macの場合]<br></li>
+<li>接続できたか、試験をします。Windowsの場合はPowerShellを起動します。スタートメニューを右クリックすると起動できます。<br>Macの場合は、Finderアプリで「/アプリケーション/ユーティリティ」フォルダを開いて、「ターミナル」をダブルクリックします。<br><img style="width: 368.55px" src="img/9f3378aedfca10ae.png"><br>[Windowsの場合PowerShellを開く]<br><br><img style="width: 601.70px" src="img/431d813c79539e95.png"><br>[Macの場合「ターミナル」を開く]<br></li>
+<li>PowerShellまたはターミナルの中で「ping pong.soracom.io」と入力し、リターンキーを押します。以下のように、pingへの応答があれば成功です。<br>pingコマンドが停止しない場合はコントロールキーを押しながら「c」を押すと停止します。<br><img style="width: 601.70px" src="img/7f5a5afc623f553f.png">もし以下のように応答が無い場合は正常に接続できていないので、WireGuardの設定が間違っていないか、また接続が有効になっているかを確認してください。<br><img style="width: 601.70px" src="img/4a0a3a402123933d.png"></li>
+<li>arcの接続を終了するには、WireGuardの画面で「無効化」を押します。<br><img style="width: 601.70px" src="img/64e9648fdcade277.png"><br></li>
+</ol>
+<h2 is-upgraded>トラブルシューティング</h2>
+<p>①バーチャルSIM登録時の情報を保存し忘れた</p>
+<ol type="1" start="1">
+<li>SIM管理画面から該当のSIM(「サブスクリプション」が「planArc01」のもの)を探し、チェックボックスをクリックしてから左上の「詳細」を押します。<br><img style="width: 601.70px" src="img/ffd0e6ab23204ac4.png"></li>
+<li>SIM詳細画面で、「バーチャルSIM」タブをクリック、「高度な設定」をクリック、「公開鍵の更新」をクリックします。<br><img style="width: 601.70px" src="img/a159dd6eb7e4307e.png"></li>
+<li>「認証情報を生成」を押します。<br><img style="width: 601.70px" src="img/47210af4a183643c.png"></li>
+<li>「クライアントピア秘密鍵」と「クライアントピア公開鍵」を保存しておきます。<br><img style="width: 601.70px" src="img/66a976f4e29298c1.png"></li>
+<li>「セッション」タブを押し、「バーチャルSIMセッションのリセット」を押します。<br><img style="width: 601.70px" src="img/d56936870394ffb9.png"></li>
+<li>「バーチャルSIMセッションをリセット」を押します<br><img style="width: 601.70px" src="img/51936de2fe0929fb.png"></li>
+<li>一度画面をリロードします。リロードすると再度SIM管理画面が表示されるので、同じ手順でSIM詳細画面を開き、「バーチャルSIM」タブの「セッション」を確認します。<br>ここで表示される「クライアントピア公開鍵」が、先ほど保存した値と同じであることを確認します。<br>「クライアントピアIPアドレス」、「サーバーピア公開鍵」、「サーバーエンドポイント」の値を保存します。<br><img style="width: 601.70px" src="img/a4b0e2d88736ac86.png"></li>
+<li>テキストエディッタなどを開き、WireGuardの設定を以下の形で作成します。<br></li>
+</ol>
+<pre><code>[Interface]
+PrivateKey = クライアントピア秘密鍵
+Address = クライアントピアIPアドレス
+
+[Peer]
+PublicKey = サーバピア公開鍵
+AllowedIPs = 100.127.0.0/16
+Endpoint = サーバエンドポイント.</code></pre>
+<ol type="1" start="9">
+<li>上記の値をWireGuardに設定します。</li>
+</ol>
+<p><br>②WireGuardを有効にしても接続できない</p>
+<ol type="1" start="1">
+<li>SIM管理画面から該当のSIM(「サブスクリプション」が「planArc01」のもの)を探し、チェックボックスをクリックしてから左上の「詳細」を押します。<br><img style="width: 601.70px" src="img/ffd0e6ab23204ac4.png"></li>
+<li>SIM詳細画面の「バーチャルSIM」タブの「高度な設定」に進みます。<br><br><img style="width: 601.70px" src="img/8dfd322d1b5bb5d1.png"></li>
+<li>「バーチャルSIMの再初期化」を押します。<br><img style="width: 601.70px" src="img/e524a4aa5f7cd6ae.png"></li>
+<li>以下のように、WireGuardの設定が表示されますので、WireGuardにこの情報を再設定します。<br>&lt;YOUR_PRIVATE_KEY&gt;の部分は最初に保存した設定の「PrivateKey」の値をそのまま使います。<br><img style="width: 601.70px" src="img/6cd58bf035fa6352.png"></li>
+<li>「有効化」を押して接続できるかを試します</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="SORACOM LTE-M Button for Enterpriseシミュレータについて" duration="0">
+        <p>今回のハンズオンでは、SORACOM LTE-M Button for Enterprise(通称：しろボタン)の代わりに、エミュレータソフト(通称：にせボタン)を用います。</p>
+<h2 is-upgraded>動作環境</h2>
+<p>現在公式に配布しているバイナリーは、以下の環境で動作確認が取れています。<br></p>
+<ul>
+<li>Windows 10 Professional (32bit/64bit)</li>
+<li>Mac OS Big sur(Intel Mac/M1 Mac)</li>
+</ul>
+<p>これ以外の環境をお使いでバイナリが動かない場合は、Node.js + Electronが動く環境であればソースコードからビルドすることで動作すると思われますが、本テキストではビルド環境の構築については触れませんのでご了承ください。</p>
+<h2 is-upgraded>ダウンロードしてインストールする</h2>
+<p>以下のURLから、ご自身の環境に合わせたバイナリをダウンロードしてください。<br><br><a href="https://github.com/kenichiro-kimura/soracom-button/releases/tag/v0.2.0" target="_blank">https://github.com/kenichiro-kimura/soracom-button/releases/tag/v0.2.0</a><br></p>
+<h2 is-upgraded>起動する</h2>
+<p>Windowsの場合はスタートメニューから、Macの場合はFinderなどからクリックすると起動します(アプリケーション名：soracom-button)。</p>
+<p>Macの場合、インストールしたアプリを実行しようとすると、開発元が不明なため開けないと警告が出る場合があります。</p>
+<p>その場合は、Finderでアプリを表示して、Controlキーを押しながらアプリケーションアイコンをクリックして、ショートカットメニューから「開く」を選択します。</p>
+<p>起動すると以下のような画面が表示されます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/79c8372630433269.png"><br></p>
+<p>メニューの機能は以下の通りです。</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>メニュー名</p>
+</td><td colspan="1" rowspan="1"><p>サブメニュー名</p>
+</td><td colspan="1" rowspan="1"><p>機能</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>File</p>
+</td><td colspan="1" rowspan="1"><p>終了</p>
+</td><td colspan="1" rowspan="1"><p>アプリケーションを終了します</p>
+</td></tr>
+<tr><td colspan="1" rowspan="2"><p>View</p>
+</td><td colspan="1" rowspan="1"><p>サイズ</p>
+</td><td colspan="1" rowspan="1"><p>ウインドウサイズを大/中/小から選択できます。デフォルトは「大」です</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ステッカー</p>
+</td><td colspan="1" rowspan="1"><p>ボタンにステッカーを貼って見た目を変えられます。しろボタンとUGバージョンがあり、デフォルトは「しろボタン」です</p>
+</td></tr>
+<tr><td colspan="1" rowspan="2"><p>Help</p>
+</td><td colspan="1" rowspan="1"><p>SORACOM LTE-M Button for Enterpriseユーザーガイド</p>
+</td><td colspan="1" rowspan="1"><p>SORACOMの公式ページが開きます。今回は利用しません。</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Open devTools for WebView</p>
+</td><td colspan="1" rowspan="1"><p>デバッグ用です。今回は利用しません。</p>
+</td></tr>
+</table>
+<p>Viewから見た目やサイズを好きな物に変えてみてください。動作自体は変わりません。</p>
+<h2 is-upgraded>使い方</h2>
+<p><img style="width: 601.70px" src="img/680b44f804acabbc.png"><br><br>大きな丸が、ボタンになります。ここをシングルクリック・ダブルクリック・ロングクリックすることができます。クリックすると、SORACOMにデータが送信されます。</p>
+<p>小さな丸が、LEDになります。通信中はオレンジに点滅し、5秒ほど点滅をしたあとに実際に通信が発生します。通信結果が成功であれば緑に、失敗であれば赤に1秒ほど点灯します。</p>
+<p>「バッテリーレベル」のドロップボックスで、送信するバッテリーレベルを変更できます。バッテリーレベルは1.0/0.75/0.5/0.25から選べます。</p>
+<p>「送信状況」の部分に現在の通信内容(例：シングルクリックでバッテリーレベル1.0を送信中)が表示され、通信終了後は通信結果(成功/失敗)が表示されます。</p>
+<p>SORACOM Arcで作成したバーチャルSIMの通信状況をSORACOM Harvest Dataで見ながら、色々なタイプのクリック情報やバッテリーレベルを送ってみてください。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="SORACOM SIMグループ セットアップ" duration="0">
+        <h2 is-upgraded>SIMグループの作成</h2>
+<p>SORACOMの各サービスを使うには、SIMをSIMグループへ登録する必要があります。</p>
+<p>ここでは、まずSIMグループを作成します。</p>
+<ol type="1" start="1">
+<li>左上のMenuをクリックし、[SIMグループ]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 327.50px" src="img/cac499ca140242f9.png"></p>
+<ol type="1" start="2">
+<li>[追加]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 530.50px" src="img/53f47f313d72b881.png"></p>
+<ol type="1" start="3">
+<li>グループ名として、以下を入力し、[グループ作成]をクリックします。</li>
+</ol>
+<ol type="1" start="1">
+<li>[handson-名前-今日の日付]</li>
+</ol>
+<p>ex)handson-soratan-20210821</p>
+<p class="image-container"><img style="width: 533.92px" src="img/d81d33c013773dcf.png"></p>
+<ol type="1" start="4">
+<li>SIMグループ設定画面が出てくれば完了です。</li>
+</ol>
+<p class="image-container"><img style="width: 575.21px" src="img/326cf29bc9604fcb.png"></p>
+<h2 is-upgraded>SIMグループへのSIM追加</h2>
+<p>作成したSIMグループに、Arc設定時に作成した仮想SIMを所属させます。</p>
+<ol type="1" start="1">
+<li>左上のMenuをクリックし、[SIM 管理]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 327.50px" src="img/cac499ca140242f9.png"></p>
+<ol type="1" start="2">
+<li>作成した仮想SIMの左端のチェックボックスをクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 559.50px" src="img/7ce0516a13f8b5cc.png"></p>
+<ol type="1" start="3">
+<li>画面上部の[操作 ▼]をクリックし、[所属グループ変更]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 532.50px" src="img/6a4c3cde14280953.png"></p>
+<ol type="1" start="4">
+<li>[新しい所属グループ]からさきほど作成したSIMグループを選択し[グループ変更]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 560.54px" src="img/aa431d20cf8d3cf2.png"></p>
+<ol type="1" start="5">
+<li>グループのところに、選択したグループ名表示されていれば完了です。<img style="width: 601.70px" src="img/bbf4e523643e4b6b.png"></li>
+</ol>
+<h2 is-upgraded>SORACOM Air for セルラー設定</h2>
+<p>ボタンの位置データを取得するための簡易位置測定機能とボタンからのデータを適切なフォーマットに変換するバイナリパーサーの設定を行います。</p>
+<ol type="1" start="1">
+<li>左上のMenuをクリックし、[SIMグループ]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 327.50px" src="img/cac499ca140242f9.png"></p>
+<ol type="1" start="2">
+<li>左の名前で、作成したSIMグループを選択します。</li>
+</ol>
+<p class="image-container"><img style="width: 371.07px" src="img/7f046c63052e8fcc.png"></p>
+<ol type="1" start="3">
+<li>[SORACOM Air for セルラー設定]左の[&gt;]をクリックします。設定セクションが表示されます。</li>
+</ol>
+<p class="image-container"><img style="width: 534.50px" src="img/e58801acbe881d75.png"></p>
+<ol type="1" start="4">
+<li>[簡易位置測定機能]横のボタンをクリックして、ONにします。<img style="width: 468.06px" src="img/36eb97a54101f693.png"></li>
+<li>[バイナリパーサー]横のボタンをクリックして、ONにし、フォーマットに[<strong>@button</strong>]と入力します。</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/c3997160a6205ca1.png"></p>
+<ol type="1" start="6">
+<li>最下部の[保存]をクリックします。</li>
+<li>[SORACOM Air for セルラー設定]左の[&gt;]をクリックし、設定セクションを閉じます。</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="SORACOM Orbitセットアップ" duration="0">
+        <h2 is-upgraded>WASMのダウンロード</h2>
+<p>今回のSORACOM OrbitのWASMファイルは事前に準備しておりますので、まずはそれをダウンロードします。</p>
+<ol type="1" start="1">
+<li>以下のgithubのURLにアクセスし、任意の場所にダウンロードします。</li>
+</ol>
+<p><a href="https://github.com/soracomug/handson/soracom-ark-v-button-line-notify/soracom-orbit/wasm.zip" target="_blank">https://github.com/soracomug/handson/soracom-ark-v-button-line-notify/soracom-orbit/wasm.zip</a><br>        [TODO 配置したら画面キャプチャー]</p>
+<ol type="1" start="2">
+<li>ダウンロードしたzipファイルを解凍します。</li>
+</ol>
+<h2 is-upgraded>WASMのアップロード</h2>
+<p>先ほどダウンロードしたWASMファイルをSoraletとしてアップロードします。</p>
+<ol type="1" start="1">
+<li>左上のMenuをクリックし、[SORACOM Orbit]をクリックし、[Soralet管理]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 428.50px" src="img/4fd25fd896661a06.png"></p>
+<ol type="1" start="2">
+<li>左上の[+ 新規作成]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 429.07px" src="img/f8d53c3bb7f5e601.png"></p>
+<ol type="1" start="3">
+<li>Soralet の作成では以下を入力します。</li>
+</ol>
+<ol type="1" start="1">
+<li>SORALET ID : [handson-名前-今日の日付]を入力します。</li>
+</ol>
+<p>                ex ) handson-sorataro-20210821</p>
+<ol type="1" start="2">
+<li>概要 : 任意</li>
+</ol>
+<p class="image-container"><img style="width: 417.70px" src="img/11354bb147bb157.png"></p>
+<ol type="1" start="4">
+<li>入力が終わったら、[作成]をクリックします。</li>
+<li>VERSIONSタブの[新しいWASMをアップロード]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 363.09px" src="img/302e9f992d8c065e.png"></p>
+<ol type="1" start="6">
+<li>[ファイルを選択]をクリックし、先ほどダウンロードしたWASMファイルのうち[soralet-optimized.wasm]を選択します。</li>
+</ol>
+<p class="image-container"><img style="width: 449.50px" src="img/f9eca9fef48a2fb9.png"></p>
+<ol type="1" start="7">
+<li>選択が終わったら[アップロード]をクリックします。</li>
+<li>Version 1 が作成されることを確認したら、SRNに表示されている文字列をコピーします。</li>
+</ol>
+<p>ex) srn:soracom:OP0123456789:jp:Soralet:handson-sorataro-20210821/1</p>
+<p class="image-container"><img style="width: 478.06px" src="img/226e16ab8a4bff7b.png"></p>
+<h2 is-upgraded>Orbitの設定</h2>
+<p>SIMグループに先ほど追加したSoraletを紐づけて、Orbitを有効にします。</p>
+<ol type="1" start="1">
+<li>左上のMenuをクリックし、[SIMグループ]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 327.50px" src="img/cac499ca140242f9.png"></p>
+<ol type="1" start="2">
+<li>左の名前で、作成したSIMグループを選択します。</li>
+</ol>
+<p class="image-container"><img style="width: 310.50px" src="img/441019e57a220d37.png"></p>
+<ol type="1" start="3">
+<li>[SORACOM Orbit 設定]左の[&gt;]をクリックします。設定セクションが表示されます。</li>
+</ol>
+<p class="image-container"><img style="width: 504.04px" src="img/f0f9689f4ec4a8a7.png"></p>
+<ol type="1" start="4">
+<li>設定セクションでは以下の設定を行います。</li>
+</ol>
+<ol type="1" start="1">
+<li>ボタン : ON</li>
+<li>CODE SRN : 先ほどコピーしたSoraletのSRNを貼り付けます。その際、<strong>/1</strong>の部分を <strong>/$LATEST</strong>に変更します。</li>
+</ol>
+<ol type="1" start="1">
+<li>入力フィールド横の歯車ボタンを開くと表示される選択画面で、先ほど作成したSORALETとSORALET VERSIONを選んでも構いません。</li>
+</ol>
+<ol type="1" start="3">
+<li>CONTENT TYPE : <strong>applicaiton/json</strong></li>
+<li>DERECTION : <strong>uplink</strong>のみチェック</li>
+<li>メタデータ : そのまま</li>
+<li> 簡易位置測位機能 : ON</li>
+</ol>
+<p class="image-container"><img style="width: 529.50px" src="img/70086cd7a3216232.png"></p>
+<ol type="1" start="5">
+<li>入力し終わったら、[保存]をクリックします。</li>
+</ol>
+<h2 is-upgraded>トラブルシューティング</h2>
+<ol type="1" start="1">
+<li>WASMファイルのアップロード時にエラーになる。</li>
+</ol>
+<ol type="1" start="1">
+<li>正しいWASMファイルを指定していない可能性がありますので、解凍済みのWASMファイルを指定してください。<br>再度ダウンロード、解凍しても同様のエラーになる場合は講師にご連絡ください。</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="SORACOM Beamセットアップ" duration="0">
+        <h2 is-upgraded>Beamの設定</h2>
+<p>SIMグループにおいて、Beamの設定を行い、Line Notifyに通知できるようにします。</p>
+<ol type="1" start="1">
+<li>[SORACOM Beam 設定]左の[&gt;]をクリックします。設定セクションが表示されます。</li>
+</ol>
+<p class="image-container"><img style="width: 519.50px" src="img/68d2fa84215b068a.png"></p>
+<ol type="1" start="2">
+<li>左下の[+]ボタンをクリックし、[UDP → HTTP/HTTPS エントリポイント]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 443.50px" src="img/2d0a82ed215f31c3.png"></p>
+<ol type="1" start="3">
+<li>[転送先]で以下を入力します。</li>
+</ol>
+<ol type="1" start="1">
+<li>プロコトル : HTTPS</li>
+<li>ホスト名 : notify-api.line.me</li>
+<li>ポート番号 : 443</li>
+<li>パス : notify-api.line.me</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/ccca05395cd00c03.png"></p>
+<ol type="1" start="4">
+<li>[ヘッダー操作]のカスタムヘッダにある[+]をクリックして、以下を入力します。</li>
+</ol>
+<ol type="1" start="1">
+<li>アクション : 追加</li>
+<li>ヘッダー名 : Authorization</li>
+<li>値 : Bearer[スペース]&lt;Line Notifyで取得したToken&gt;</li>
+</ol>
+<p class="image-container"><img style="width: 518.50px" src="img/a76746265aa6d35d.png"></p>
+<ol type="1" start="5">
+<li>入力し終わったら[作成]をクリックします。</li>
+<li>最後に[保存]をクリックします。以下になればOKです。</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/2c7f9bb92711bab6.png"></p>
+<ol type="1" start="7">
+<li>[SORACOM Beam 設定]左の[&gt;]をクリックし、設定セクションを閉じます。</li>
+</ol>
+<h2 is-upgraded>動作確認</h2>
+<p>この状態で、Line Notifyに通知が行われるようになっています。</p>
+<p>仮想デバイスボタンをクリックし、以下のようなメッセージが送られるか試してみましょう！</p>
+<p class="image-container"><img style="width: 601.70px" src="img/1ccaf4d69f27dcd7.jpeg"></p>
+<h2 is-upgraded>トラブルシューティング</h2>
+<ol type="1" start="1">
+<li>通知がこない</li>
+</ol>
+<ol type="1" start="1">
+<li>Beamの設定が正しく行われていない可能性がありますので、[Beamの設定]を再度確認してください。</li>
+<li>表示されているメッセージがおかしい<br>以下の2つが考えられます。</li>
+</ol>
+<ol type="1" start="1">
+<li>SORACOM Air for セルラー設定が正しく行われてない可能性がありますので、[SORACOM Air for セルラー設定の設定]を再度確認してください。</li>
+<li>SORACOM Orbitが正しく行われてない可能性がありますので、[Orbitの設定]を再度確認してください。</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="SORACOM Harvestセットアップ" duration="0">
+        <h2 is-upgraded>Harvestの設定</h2>
+<p>Harvestを有効化します。</p>
+<ol type="1" start="1">
+<li>左上のMenuをクリックし、[SIMグループ]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 327.50px" src="img/cac499ca140242f9.png"></p>
+<ol type="1" start="2">
+<li>左の名前で、作成したSIMグループを選択します。</li>
+</ol>
+<p class="image-container"><img style="width: 310.50px" src="img/441019e57a220d37.png"></p>
+<ol type="1" start="3">
+<li>[SORACOM Harvest Data設定]左の[&gt;]をクリックします。設定セクションが表示されます。</li>
+</ol>
+<ol type="1" start="4">
+<li>設定セクションのボタンをONにします。</li>
+<li>変更したら、[保存]をクリックします。</li>
+<li>確認ダイアログが出ますので、そのまま[OK]をクリックします。</li>
+</ol>
+<h2 is-upgraded>可視化</h2>
+<p>先ほどダウンロードしたWASMファイルをSoraletとしてアップロードします。</p>
+<ol type="1" start="1">
+<li>左上のMenuをクリックし、[データ収集・蓄積・可視化]をクリックし、[SORACOM Harvest Data]をクリックします。</li>
+<li>左上の[リソース ▼]をクリックします。</li>
+<li>今回作成した仮想SIMを選択します。</li>
+<li>真ん中にある[自動更新]をONにします。</li>
+</ol>
+<h2 is-upgraded><br>使い方</h2>
+<p>Harvestでは、データの参照、グラフ(3種類)、位置情報を確認することができます。</p>
+<ol type="1" start="1">
+<li>データの参照</li>
+</ol>
+<ol type="1" start="1">
+<li>仮想IoTボタンからのデータを、生データ、一時処理済みデータ、グラフデータの３種類で見ることが可能です。</li>
+<li>ボタンをクリックして、データが格納することを確認します。</li>
+</ol>
+<p class="image-container"><img style="width: 475.21px" src="img/e2080ae351be54ae.png"></p>
+<ol type="1" start="2">
+<li>グラフ</li>
+</ol>
+<ol type="1" start="1">
+<li>グラフは、折れ線、棒、積み上げの3種類から選べます。</li>
+<li>右側の[DATA SERIES]に表示可能なデータが一覧で出てきます。初期状態では、全データ表示になっていますので、[ClickType]だけを選択します。</li>
+<li>右側のグラフ部に、ClickTypeのみ選択されているのがわかると思います。</li>
+</ol>
+<p class="image-container"><img style="width: 551.50px" src="img/692f8d0d05d7ea77.png"><img style="width: 541.50px" src="img/e463101dca750031.png"><img style="width: 537.50px" src="img/4359480519208411.png"></p>
+<ol type="1" start="3">
+<li>位置情報</li>
+</ol>
+<ol type="1" start="1">
+<li>ボタンの位置情報を確認することが可能です。</li>
+<li>ボタンの位置として、が表示されていると思います。</li>
+</ol>
+<p class="image-container"><img style="width: 554.50px" src="img/e67b6278f7efef6c.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="位置情報を表示してみる" duration="0">
+        <p>メッセージにはボタンのクリックタイプしか案内していませんでしたが、位置情報を表示することも可能です。そちらのバージョンも試してみます。</p>
+<p>ただし、仮想ボタンでは、位置情報は取得できないため、緯度経度はそれぞれ0.0と表示されます（アフリカ大陸西岸の大西洋上、通称ヌル島）</p>
+<h2 is-upgraded>WASMのアップロード</h2>
+<p>先ほどダウンロードしたWASMファイルのもう1つをSoraletとしてアップロードします。</p>
+<ol type="1" start="1">
+<li>左上のMenuをクリックし、[SORACOM Orbit]をクリックし、[Soralet管理]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 433.73px" src="img/4fd25fd896661a06.png"></p>
+<ol type="1" start="2">
+<li>VERSIONSタブの[新しいWASMをアップロード]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 363.09px" src="img/302e9f992d8c065e.png"></p>
+<ol type="1" start="3">
+<li>[ファイルを選択]をクリックし、先ほどダウンロードしたWASMファイルのうち[soralet-optimized-with-geo.wasm]を選択します。</li>
+</ol>
+<p class="image-container"><img style="width: 449.50px" src="img/f9eca9fef48a2fb9.png"></p>
+<ol type="1" start="4">
+<li>選択が終わったら[アップロード]をクリックします。</li>
+<li>Version 2 が作成されることを確認できればOKです。</li>
+</ol>
+<p class="image-container"><img style="width: 508.50px" src="img/57f2a2c3c99e4462.png"></p>
+<h2 is-upgraded>動作確認</h2>
+<p>最初のOrbitの設定時に、Soraletのバージョンを$LATESTにしたので、自動的に最新バージョンである<strong>Version 2</strong>が利用できるようになっています。</p>
+<p>仮想デバイスボタンをクリックし、以下のようなメッセージが送られるか試してみましょう！</p>
+<p class="image-container"><img style="width: 482.50px" src="img/209128d3aadb2568.jpeg"></p>
+<p>もし、位置情報を表示しないバージョンに戻したい場合は、以下を行います。</p>
+<h2 is-upgraded>Orbitの設定</h2>
+<ol type="1" start="1">
+<li>左上のMenuをクリックし、[SIMグループ]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 327.50px" src="img/cac499ca140242f9.png"></p>
+<ol type="1" start="2">
+<li>左の名前で、作成したSIMグループを選択します。</li>
+</ol>
+<p class="image-container"><img style="width: 310.50px" src="img/441019e57a220d37.png"></p>
+<ol type="1" start="3">
+<li>[SORACOM Orbit 設定]左の[&gt;]をクリックします。設定セクションが表示されます。</li>
+</ol>
+<p class="image-container"><img style="width: 504.04px" src="img/f0f9689f4ec4a8a7.png"></p>
+<ol type="1" start="4">
+<li>設定セクションでは以下の設定を行います。</li>
+</ol>
+<p>・CODE SRN : 先ほどコピーしたSoraletのSRNを貼り付けます。その際、<strong>/$LATEST</strong>の部分を <strong>/1</strong>に変更します。</p>
+<p class="image-container"><img style="width: 572.50px" src="img/2e5a5ffb4927f208.png"></p>
+<ol type="1" start="5">
+<li>変更し終わったら、[保存]をクリックします。</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="後片付け" duration="0">
+        <p>放置しておいても、課金が発生することはありませんが、後片付けを行います。</p>
+<p>仮想SIMについても、アカウントに１つだけは無料で保持できますので、そのままでも問題ありません。1つ以上お持ちの方のみ、不要の場合は削除を行ってください。</p>
+<h2 is-upgraded>Wireguradの削除</h2>
+<p>OS標準のアンインストール方法で削除します。</p>
+<h2 is-upgraded>SORACOM LTE-M Button for Enterpriseシミュレータの削除</h2>
+<p>こちらもOS標準のアンインストール方法で削除します。</p>
+<h2 is-upgraded>Line Notifyのトークンの削除</h2>
+<p>登録したままでも問題ありませんが、不要の場合は削除してください。</p>
+<ol type="1" start="1">
+<li>LINE Notifyにログインし、マイページで今回使ったトークン横の[解除]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/d32d746ecb810bd3.png"></p>
+<ol type="1" start="2">
+<li>出てきたダイアログで、問題なければ、[解除]をクリックします。マイページで表示がなくなっていれば削除完了です。</li>
+</ol>
+<p class="image-container"><img style="width: 409.59px" src="img/a103a3e68755f548.png"></p>
+<h2 is-upgraded>SIMグループの削除</h2>
+<p>SIMグループを削除するには、紐づいているSIMグループを削除してから削除する必要があります。</p>
+<ol type="1" start="1">
+<li>SIMの紐付け解除は、SIMグループの登録と同じ手順で、SIMを選択して、SIMの所属グループ変更画面を表示します。そこで、新しい所属グループで[グループ解除]を選択して、登録すれば解除されます。</li>
+</ol>
+<p class="image-container"><img style="width: 543.50px" src="img/601ac0ec93ab250f.png"></p>
+<ol type="1" start="2">
+<li>SIMグループの削除は、SIMグループ設定画面右上の[削除]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 565.50px" src="img/25ded7386228b4ec.png"></p>
+<ol type="1" start="3">
+<li>問題なければそのまま[削除する]をクリックします。これで完了です。</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/a620b9cbfb0f01d9.png"></p>
+<p>なお、SIMの紐付けがあると、エラーになりますので、必ずSIMの紐付けを全部解除してから行ってください。</p>
+<h2 is-upgraded>仮想SIMの削除(すでに1つ以上仮想SIMがある方のみ実施してください)</h2>
+<ol type="1" start="1">
+<li>仮想SIMの解約は、通常のSIMの解約と同じく、SIMを選択後、画面上部の[操作 ▼]をクリックし、[解約]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 363.50px" src="img/fff0c2bc7f9b7cf7.png"></p>
+<ol type="1" start="2">
+<li>問題なければ、そのまま[解約する]をクリックしてください。</li>
+</ol>
+<p class="image-container"><img style="width: 521.50px" src="img/4950c70ecd5f2bea.png"></p>
+<ol type="1" start="3">
+<li>SIM一覧から仮想SIMがなくなっていればOKです。</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Appendix 1" duration="0">
+        <p>ここでは、SORACOM Orbitの開発環境をセットアップし、ハンズオンで使ったWASMのソースコードを修正して、メッセージを変えてみます。</p>
+<p>参考ページにも記載がありますが、</p>
+<p>前提条件として、VSCodeとDockerをインストールしておく必要があります。</p>
+<h2 is-upgraded>SORACOM Orbit開発環境のセットアップ</h2>
+<ol type="1" start="1">
+<li>SORACOMユーザーガイドの「WASM モジュール開発環境のセットアップ」の手順で開発環境をセットアップします。</li>
+</ol>
+<p>https://users.soracom.io/ja-jp/docs/orbit/setup/</p>
+<h2 is-upgraded>ソースコードを修正します。</h2>
+<p>今回のサンプルはAssemblyScriptとなっています。 </p>
+<ol type="1" start="1">
+<li>ソースコードを以下のURLから取得します。</li>
+</ol>
+<p>https://www.github/sample/index.ts</p>
+<ol type="1" start="2">
+<li>assembly/index.tsの中身を1.で取得したindex.tsの中身と入れ替えます。</li>
+</ol>
+<p class="image-container"><img style="width: 520.50px" src="img/a177c67cb7e4469f.png"></p>
+<ol type="1" start="3">
+<li>メッセージを変更する場合は、43行目にある以下のロジックを修正します。</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/830ca68b25e4642f.png"></p>
+<ol type="1" start="4">
+<li>デバイスの緯度経度が取れなかった場合に緯度0、経度0としていますが、これを変更する場合は、22行目、23行目にある以下のロジックを変更します。</li>
+</ol>
+<p class="image-container"><img style="width: 417.50px" src="img/5b5e2e33caced5c.png"></p>
+<p><strong>lat</strong>(latitiude)が<strong>緯度</strong></p>
+<p><strong>lon</strong>(longitude)が<strong>経度<br></strong>になります。</p>
+<ol type="1" start="5">
+<li>修正が終わったら、ターミナルで、以下のコマンドを入力し、デプロイ用のWASMファイルのビルドを行います。</li>
+</ol>
+<p>「<strong>npm run build:optimized</strong>」</p>
+<p>正常終了すれば、assembly/build/ 以下に<strong>soralet-optimized.wasm</strong>が生成されます。</p>
+<ol type="1" start="6">
+<li>作成したWASMファイルをデプロイするには、左上のMenuをクリックし、[SORACOM Orbit]をクリックし、[Soralet管理]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 433.73px" src="img/4fd25fd896661a06.png"></p>
+<ol type="1" start="7">
+<li>VERSIONSタブの[新しいWASMをアップロード]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 363.09px" src="img/302e9f992d8c065e.png"></p>
+<ol type="1" start="8">
+<li>[ファイルを選択]をクリックし、先ほどビルドしたWASMファイル[soralet-optimized.wasm]を選択します。</li>
+</ol>
+<p class="image-container"><img style="width: 449.50px" src="img/f9eca9fef48a2fb9.png"></p>
+<ol type="1" start="9">
+<li>選択が終わったら[アップロード]をクリックします。<br>新しいバージョンができていればOKです。</li>
+<li>ここで、Orbitの設定でsoraletのバージョンをバージョン番号固定にしている場合は、アップロードしたバージョンに変更します。</li>
+</ol>
+<h2 is-upgraded>動作確認</h2>
+<p>仮想デバイスボタンをクリックし、修正したメッセージが送られるか試してみましょう！</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Appendix 2" duration="0">
+        <p>ここでは、SORACOM LTE-M Button for Enterprise(しろボタン)をお持ちの方向けに、仮想IoTボタンと同じ設定でSORACOM LTE-M Button for Enterpriseを動かすような設定を行います。</p>
+<h2 is-upgraded>SORACOM LTE-M Button for EnterpriseのSIMをSIMグループに登録</h2>
+<p>仮想SIMをSIMグループに登録した手順と同じ方法で、SORACOM LTE-M Button for Enterprise用のSIMをSIMグループに登録します。</p>
+<ol type="1" start="1">
+<li>SORACOM LTE-M Button for Enterprise用のSIMを選択します。</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/b140d1ee245d8628.png"></p>
+<ol type="1" start="2">
+<li>画面上部の[操作 ▼]をクリックし、[所属グループ変更]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 459.50px" src="img/7377e0b3aeb4d2a.png"></p>
+<ol type="1" start="3">
+<li>[新しい所属グループ]からさきほど作成したSIMグループを選択し[グループ変更]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 502.50px" src="img/c970716f3c64eea5.png"></p>
+<ol type="1" start="4">
+<li>グループのところに、選択したグループ名表示されていれば完了です。</li>
+</ol>
+<p class="image-container"><img style="width: 596.50px" src="img/aff85b7c34fc3eaa.png"></p>
+<h2 is-upgraded>動作確認</h2>
+<p>すでに動作する設定は完了しているので、実際にボタンをクリックすることで、以下のようなメッセージが通知されます。</p>
+<p class="image-container"><img style="width: 497.26px" src="img/b29b4ece4373f541.jpeg"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
