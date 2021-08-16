@@ -2,12 +2,12 @@
   "environment": "web",
   "format": "html",
   "prefix": "https://storage.googleapis.com",
-  "updated": "2021-08-13T02:20:57Z",
-  "id": "soracom-arc-v-button-handson",
-  "duration": 0,
-  "title": "SORACOM Arc \u0026 仮想IoTボタン ハンズオンテキスト",
+  "updated": "2021-08-16T13:48:09Z",
+  "id": "soracom-arc-button-simulator-handson",
+  "duration": 54,
+  "title": "SORACOM Arc \u0026 IoTボタンシュミレータ ハンズオンテキスト",
   "authors": "Kenichiro KIMURA、Kenichiro Wada",
-  "summary": "SORACOM Arc \u0026 仮想IoTボタン ハンズオンテキストです。",
+  "summary": "SORACOM Arc \u0026 IoTボタンシュミレータ ハンズオンテキストです。",
   "source": "1zD0d7djaBV3PnSaxLiCMKQEbqtRMcf0hSBRAS_BkX6E",
   "theme": "100-basic",
   "status": [
@@ -17,5 +17,5 @@
     "100-Basic"
   ],
   "tags": [],
-  "url": "soracom-arc-v-button-handson"
+  "url": "soracom-arc-button-simulator-handson"
 }
