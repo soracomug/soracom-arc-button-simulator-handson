@@ -29,6 +29,7 @@ export function uplink(): i32 {
   }
 
   const tagname = getTagValue("name");
+  const batteryLevel:f64  = data.getFloat("batteryLevel") != null ? data.getFloat("batteryLevel")!.valueOf() : data.getInteger("batteryLevel") != null ? data.getInteger("batteryLevel")!.valueOf() as f64 : 0.0;
   const clickTypeName  = data.getString("clickTypeName") != null ? data.getString("clickTypeName")!.valueOf() : "";
   let clickTypeNameJp = "";
   if (clickTypeName == "SINGLE") {
@@ -40,7 +41,8 @@ export function uplink(): i32 {
   } else {
     clickTypeNameJp = "不明"
   }
-  const message = tagname + "が" + clickTypeNameJp + "されました。\nおおよその位置：緯度:" + locationLat.toString() + " 経度:" + locationLon.toString() + "\n https://www.google.com/maps?q=" + locationLat.toString() + "," + locationLon.toString();
+  const message = tagname + "が" + clickTypeNameJp + "されました。\nバッテリーレベルは" + batteryLevel.toString() + "です。";
+  //const message = tagname + "が" + clickTypeNameJp + "されました。\nバッテリーレベルは" + batteryLevel.toString() + "です。\nおおよその位置：緯度:" + locationLat.toString() + " 経度:" + locationLon.toString() + "\n https://www.google.com/maps?q=" + locationLat.toString() + "," + locationLon.toString();
   
   const contentType = "application/x-www-form-urlencoded";
   // JSON オブジェクトを文字列に変換し出力としてセット
@@ -52,7 +54,6 @@ export function uplink(): i32 {
 
   orbit_set_output(jsonMem, jsonBuffer.byteLength);
   orbit_set_output_content_type(contentTypeMem, contentTypeBuffer.byteLength);
-
 
   // return user defined result code for success
   return 0;
