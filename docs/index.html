@@ -128,6 +128,13 @@
 <p>無料利用枠: 1SIM分</p>
 <p>リクエスト無料利用枠: 10,000リクエスト分</p>
 <p>今回のハンズオンでは、バーチャルSIM１つを用い、リクエストも通常であれば10,000リクエストには達しませんので、無料枠の中でご利用いただけます。</p>
+<h2 is-upgraded>LINE Notifyについて</h2>
+<p>今回のハンズオンでは、LINE Notifyを使って、LINEに対して、通知を行います。</p>
+<p>以下のような特徴があります。</p>
+<p>No Money - 有料プランはなく、完全に無料</p>
+<p>No Provider - アクセストークンを発行するだけなので管理が楽</p>
+<p>No User ID - ユーザーIDの指定不要</p>
+<p>LINE Notifyについて詳しくは以下の公式ページを参照ください。<br><br><a href="https://notify-bot.line.me/ja/" target="_blank">https://notify-bot.line.me/ja/</a></p>
 
 
       </google-codelab-step>
@@ -195,19 +202,19 @@
 <li><a href="https://www.wireguard.com/install/" target="_blank">https://www.wireguard.com/install/</a> から<img style="width: 235.28px" src="img/c594f1b52e6983b0.png">をクリックします。</li>
 <li>ブラウザ上でApp Storeの画面が表示されますが、その際ダイアログで、「App Store を開きますか？」と表示されるので、[App Storeを開く]をクリックします。</li>
 </ol>
-<p class="image-container"><img style="width: 429.87px" src="img/4a3bac2a96c1da51.png"></p>
+<p class="image-container"><img style="width: 429.87px" src="img/f090f5eb07e93ceb.png"></p>
 <ol type="1" start="3">
 <li>App Store画面が表示されたら、右上のダウンロード<img style="width: 47.76px" src="img/2abbcb12e05602b0.png">をクリックします。</li>
 </ol>
-<p class="image-container"><img style="width: 434.50px" src="img/5e432589fce75f8a.png"></p>
+<p class="image-container"><img style="width: 434.50px" src="img/1dbf5610f56bdf5f.png"></p>
 <ol type="1" start="4">
 <li>ダウンロードおよびインストールが終わったら、以下の画面になりますので[開く]をクリックします。</li>
 </ol>
-<p class="image-container"><img style="width: 433.96px" src="img/64d7de834ac8970f.png"></p>
+<p class="image-container"><img style="width: 433.96px" src="img/eaa45bf392a26462.png"></p>
 <ol type="1" start="5">
 <li>最終的に以下の画面が表示されれば、インストール完了です。</li>
 </ol>
-<p class="image-container"><img style="width: 435.50px" src="img/df60683408235ce6.png"></p>
+<p class="image-container"><img style="width: 435.50px" src="img/ef0bc3992d67f322.png"></p>
 <aside class="warning"><p><strong>WireGuardの画面を閉じてしまったら？<br></strong>LaunchpadやFinderで「WireGuard」を探して起動してください。</p>
 </aside>
 
@@ -219,8 +226,8 @@
 <h2 is-upgraded>バーチャルSIMの作成</h2>
 <p>次に、SORACOMのコンソールからArcのバーチャルSIMを作成します。</p>
 <ol type="1" start="1">
-<li>SORACOMのコンソールにログインします。<br><a href="https://console.soracom.io" target="_blank">https://console.soracom.io</a> にアクセスすると以下のような画面が表示されます。メールアドレスとパスワードを入れ、「ログイン」ボタンを押します。<br>普段SAMでログインしている場合は、そちらでログインしても問題ありません。<br><img style="width: 601.70px" src="img/e2524c2334bebf0c.png"></li>
-<li>正常にログインできると、多くの方は最初に以下のようにSIM管理の画面が表示されます。まだSIMをお持ちで無い場合は、一覧の部分は空欄になります。<br><br><img style="width: 601.70px" src="img/545317cbb12d218f.png"><br><br>もしこの画面が表示されない場合は、左上の「Menu」から「SORACOM Air forセルラー」→「SIM管理」を選んでください。<br><img style="width: 601.70px" src="img/4a2fcf9aefe13157.png"><br></li>
+<li>SORACOMのコンソールにログインします。<br><a href="https://console.soracom.io" target="_blank">https://console.soracom.io</a> にアクセスすると以下のような画面が表示されます。メールアドレスとパスワードを入れ、「ログイン」ボタンを押します。<br>普段SAMでログインしている場合は、そちらでログインしても問題ありません。<br><img style="width: 601.70px" src="img/dcfaf00843327f3a.png"></li>
+<li>正常にログインできると、多くの方は最初に以下のようにSIM管理の画面が表示されます。まだSIMをお持ちで無い場合は、一覧の部分は空欄になります。<br><br><img style="width: 601.70px" src="img/2a0c267e3c8d7ff0.png"><br><br>もしこの画面が表示されない場合は、左上の「Menu」から「SORACOM Air forセルラー」→「SIM管理」を選んでください。<br><img style="width: 601.70px" src="img/4a2fcf9aefe13157.png"><br></li>
 <li>「サブスクリプションコンテナに対応した新しい SIM 管理画面」に切り替えます。「切り替える」をクリックしてください。<br><img style="width: 601.70px" src="img/fc60b7e51ba87c0.png"><br>以下のように「サブスクリプションコンテナに対応した新しい SIM 管理画面を<strong>ご利用中です。</strong>」と表示されていることを確認してください。<br>※既に「新しい SIM 管理画面をご利用中です。」となっている場合は、次のステップに進んでください。<br><img style="width: 601.70px" src="img/8ff15a74f9486b69.png"><br></li>
 <li>左上の「SIM登録」を押します。<br><img style="width: 601.70px" src="img/802bf5b7d47ad1b9.png"></li>
 <li>以下のようにSIM登録画面が表示されるので、「バーチャルSIMを登録」を押します。<br><img style="width: 601.70px" src="img/1ae0aacff88c78c8.png"></li>
@@ -236,21 +243,21 @@
 </ol>
 <h2 is-upgraded>接続と動作確認</h2>
 <ol type="1" start="1">
-<li>「有効化」を押して、SORACOMプラットホームに接続してみます。<br><br>[Windowsの場合]<br><img style="width: 601.70px" src="img/6a4c6421523d0343.png"><br><br>[macOS の場合]<br><img style="width: 601.70px" src="img/abec088b4f487bbf.png"><br><br></li>
-<li>接続できたか、試験をします。<br>Windowsの場合はPowerShell (もしくはコマンドプロンプト)を起動します。スタートメニューを右クリックすると起動できます。<br>Macの場合は、Finderアプリで「/アプリケーション/ユーティリティ」フォルダを開いて、「ターミナル」をダブルクリックします。<br><br>[Windowsの場合PowerShell (もしくはコマンドプロンプト)を開く]<br><img style="width: 368.55px" src="img/9f3378aedfca10ae.png"><br><br>[macOS の場合「ターミナル」を開く]<br><img style="width: 601.70px" src="img/431d813c79539e95.png"><br><br></li>
+<li>「有効化」を押して、SORACOMプラットホームに接続してみます。<br><br>[Windowsの場合]<br><img style="width: 601.70px" src="img/6a4c6421523d0343.png"><br><br>[macOS の場合]<br><img style="width: 601.70px" src="img/450783918c1917ee.png"><br><br></li>
+<li>接続できたか、試験をします。<br>Windowsの場合はPowerShell (もしくはコマンドプロンプト)を起動します。スタートメニューを右クリックすると起動できます。<br>Macの場合は、Finderアプリで「/アプリケーション/ユーティリティ」フォルダを開いて、「ターミナル」をダブルクリックします。<br><br>[Windowsの場合PowerShell (もしくはコマンドプロンプト)を開く]<br><img style="width: 368.55px" src="img/9f3378aedfca10ae.png"><br><br>[macOS の場合「ターミナル」を開く]<br><img style="width: 601.70px" src="img/f22febc8d3606679.png"><br><br></li>
 <li>PowerShell(コマンドプロンプト)またはターミナルの中で「<code>ping pong.soracom.io</code>」と入力し、リターンキーを押します。以下のように、pingへの応答があれば成功です。<br>pingコマンドが停止しない場合はコントロールキーを押しながら「c」を押すと停止します。<br><img style="width: 601.70px" src="img/7f5a5afc623f553f.png">もし以下のように応答が無い場合は正常に接続できていないので、WireGuardの設定が間違っていないか、また接続が有効になっているかを確認してください。<br><img style="width: 601.70px" src="img/4a0a3a402123933d.png"></li>
 </ol>
 <h2 is-upgraded>トラブルシューティング</h2>
 <p>設定がうまく進まないときにご覧ください。ここまでの作業が出来ている場合は次に進んでください。</p>
 <h3 is-upgraded>①バーチャルSIM登録時の情報を保存し忘れた</h3>
 <ol type="1" start="1">
-<li>SIM管理画面から該当のSIM(「サブスクリプション」が「planArc01」のもの、または名前を付けている場合はその名前で)を探し、チェックボックスをクリックしてから左上の「詳細」を押します。<br><img style="width: 601.70px" src="img/ffd0e6ab23204ac4.png"></li>
-<li>SIM詳細画面で、「バーチャルSIM」タブをクリック、「高度な設定」をクリック、「公開鍵の更新」をクリックします。<br><img style="width: 601.70px" src="img/a159dd6eb7e4307e.png"></li>
-<li>「認証情報を生成」を押します。<br><img style="width: 601.70px" src="img/47210af4a183643c.png"></li>
-<li>「クライアントピア秘密鍵」と「クライアントピア公開鍵」を保存しておきます。<br><img style="width: 601.70px" src="img/66a976f4e29298c1.png"></li>
-<li>「セッション」タブを押し、「バーチャルSIMセッションのリセット」を押します。<br><img style="width: 601.70px" src="img/d56936870394ffb9.png"></li>
-<li>「バーチャルSIMセッションをリセット」を押します<br><img style="width: 601.70px" src="img/51936de2fe0929fb.png"></li>
-<li>一度画面をリロードします。リロードすると再度SIM管理画面が表示されるので、同じ手順でSIM詳細画面を開き、「バーチャルSIM」タブの「セッション」を確認します。<br>ここで表示される「クライアントピア公開鍵」が、先ほど保存した値と同じであることを確認します。<br>「クライアントピアIPアドレス」、「サーバーピア公開鍵」、「サーバーエンドポイント」の値を保存します。<br><img style="width: 601.70px" src="img/a4b0e2d88736ac86.png"></li>
+<li>SIM管理画面から該当のSIM(「サブスクリプション」が「planArc01」のもの、または名前を付けている場合はその名前で)を探し、チェックボックスをクリックしてから左上の「詳細」を押します。<br><img style="width: 601.70px" src="img/21b48afe2c8ca86a.png"></li>
+<li>SIM詳細画面で、「バーチャルSIM」タブをクリック、「高度な設定」をクリック、「公開鍵の更新」をクリックします。<br><img style="width: 601.70px" src="img/ea20f7e6c5cc7d06.png"></li>
+<li>「認証情報を生成」を押します。<br><img style="width: 601.70px" src="img/30a7fc941bd4aba1.png"></li>
+<li>「クライアントピア秘密鍵」と「クライアントピア公開鍵」を保存しておきます。<br><img style="width: 601.70px" src="img/7eb9cf5e01ae057a.png"></li>
+<li>「セッション」タブを押し、「バーチャルSIMセッションのリセット」を押します。<br><img style="width: 601.70px" src="img/b33db44258e9a122.png"></li>
+<li>「バーチャルSIMセッションをリセット」を押します<br><img style="width: 601.70px" src="img/d3732e96d524ea33.png"></li>
+<li>一度画面をリロードします。リロードすると再度SIM管理画面が表示されるので、同じ手順でSIM詳細画面を開き、「バーチャルSIM」タブの「セッション」を確認します。<br>ここで表示される「クライアントピア公開鍵」が、先ほど保存した値と同じであることを確認します。<br>「クライアントピアIPアドレス」、「サーバーピア公開鍵」、「サーバーエンドポイント」の値を保存します。<br><img style="width: 601.70px" src="img/f84a927633db6e5d.png"></li>
 <li>テキストエディッタなどを開き、WireGuardの設定を以下の形で作成します。<br></li>
 </ol>
 <pre><code>[Interface]
@@ -266,8 +273,8 @@ Endpoint = サーバエンドポイント.</code></pre>
 </ol>
 <h3 is-upgraded><br>②WireGuardを有効にしても接続できない</h3>
 <ol type="1" start="1">
-<li>SIM管理画面から該当のSIM(「サブスクリプション」が「planArc01」のもの)を探し、チェックボックスをクリックしてから左上の「詳細」を押します。<br><img style="width: 601.70px" src="img/ffd0e6ab23204ac4.png"></li>
-<li>SIM詳細画面の「バーチャルSIM」タブの「高度な設定」に進みます。<br><br><img style="width: 601.70px" src="img/8dfd322d1b5bb5d1.png"></li>
+<li>SIM管理画面から該当のSIM(「サブスクリプション」が「planArc01」のもの)を探し、チェックボックスをクリックしてから左上の「詳細」を押します。<br><img style="width: 601.70px" src="img/21b48afe2c8ca86a.png"></li>
+<li>SIM詳細画面の「バーチャルSIM」タブの「高度な設定」に進みます。<br><br><img style="width: 601.70px" src="img/426938be77de1089.png"></li>
 <li>「バーチャルSIMの再初期化」を押します。<br><img style="width: 601.70px" src="img/e524a4aa5f7cd6ae.png"></li>
 <li>以下のように、WireGuardの設定が表示されますので、WireGuardにこの情報を再設定します。<br>&lt;YOUR_PRIVATE_KEY&gt;の部分は最初に保存した設定の「PrivateKey」の値をそのまま使います。<br><img style="width: 601.70px" src="img/6cd58bf035fa6352.png"></li>
 <li>「有効化」を押して接続できるかを試します</li>
@@ -299,7 +306,7 @@ Endpoint = サーバエンドポイント.</code></pre>
 <ol type="1" start="4">
 <li>SIMグループ設定画面が出てくれば完了です。</li>
 </ol>
-<p class="image-container"><img style="width: 575.21px" src="img/326cf29bc9604fcb.png"></p>
+<p class="image-container"><img style="width: 575.21px" src="img/b86e9b8928ca324a.png"></p>
 <h2 is-upgraded>SIMグループへのSIM追加</h2>
 <p>作成したSIMグループに、Arc設定時に作成したバーチャルSIMを所属させます。</p>
 <ol type="1" start="1">
@@ -317,7 +324,7 @@ Endpoint = サーバエンドポイント.</code></pre>
 <ol type="1" start="4">
 <li>[新しい所属グループ]からさきほど作成したSIMグループを選択し[グループ変更]をクリックします。</li>
 </ol>
-<p class="image-container"><img style="width: 560.54px" src="img/aa431d20cf8d3cf2.png"></p>
+<p class="image-container"><img style="width: 560.54px" src="img/d8201380e61556a4.png"></p>
 <ol type="1" start="5">
 <li>グループのところに、選択したグループ名が表示されていれば完了です。<img style="width: 601.70px" src="img/bbf4e523643e4b6b.png"></li>
 </ol>
@@ -410,7 +417,7 @@ Endpoint = サーバエンドポイント.</code></pre>
 </table>
 <p>Viewから見た目やサイズを好きな物に変えてみてください。動作自体は変わりません。</p>
 <h2 is-upgraded>使い方</h2>
-<p><img style="width: 601.70px" src="img/680b44f804acabbc.png"><br><br>大きな丸が、ボタンになります。ここをシングルクリック・ダブルクリック・ロングクリックすることができます。クリックすると、SORACOMにデータが送信されます。</p>
+<p><img style="width: 601.70px" src="img/5b960a066d8f3870.png"><br><br>大きな丸が、ボタンになります。ここをシングルクリック・ダブルクリック・ロングクリックすることができます。クリックすると、SORACOMにデータが送信されます。</p>
 <p>小さな丸が、LEDになります。通信中はオレンジに点滅し、5秒ほど点滅をしたあとに実際に通信が発生します。通信結果が成功であれば緑に、失敗であれば赤に1秒ほど点灯します。</p>
 <p>「バッテリーレベル」のドロップボックスで、送信するバッテリーレベルを変更できます。バッテリーレベルは1.0/0.75/0.5/0.25から選べます。</p>
 <p>「送信状況」の部分に現在の通信内容(例：シングルクリックでバッテリーレベル1.0を送信中)が表示され、通信終了後は通信結果(成功/失敗)が表示されます。</p>
@@ -467,24 +474,24 @@ Endpoint = サーバエンドポイント.</code></pre>
 <li>データの参照</li>
 </ol>
 <p>ボタンシュミレータからのデータを、生データ、一時処理済みデータ、グラフデータの３種類で見ることが可能です。</p>
-<p class="image-container"><img style="width: 484.50px" src="img/7048bf04127cf628.png"></p>
+<p class="image-container"><img style="width: 484.50px" src="img/9cef69a759c0b6ee.png"></p>
 <p>ボタンシュミレータをクリックして、データが格納されることを確認します。</p>
 <ol type="1" start="2">
 <li>グラフ</li>
 </ol>
 <p>グラフは、折れ線、棒、積み上げの3種類から選べます。</p>
-<p class="image-container"><img style="width: 514.91px" src="img/9788af440e8f9461.png"></p>
-<p class="image-container"><img style="width: 502.50px" src="img/fec0391508ce32fd.png"><img style="width: 510.80px" src="img/c9d307da8dcdda2e.png"></p>
+<p class="image-container"><img style="width: 514.91px" src="img/5e0af345986cdcc9.png"></p>
+<p class="image-container"><img style="width: 502.50px" src="img/33936fdb645e2711.png"><img style="width: 510.80px" src="img/80e0a6f579202b0e.png"></p>
 <p>右側の[DATA SERIES]に表示可能なデータが一覧で出てきます。</p>
 <p>初期状態では、全データ表示するようになっていますので、</p>
 <p>[ClickType]だけを選択します。</p>
 <p>右側のグラフ部に、ClickTypeのみ選択されているのがわかると思います。</p>
-<p class="image-container"><img style="width: 501.04px" src="img/e8b21c8b18635a70.png"></p>
+<p class="image-container"><img style="width: 501.04px" src="img/5a6662b41966133b.png"></p>
 <ol type="1" start="3">
 <li>位置情報</li>
 </ol>
 <p>デバイスの位置情報を確認することが可能です。</p>
-<p><img style="width: 554.50px" src="img/e67b6278f7efef6c.png"><br>(注)ハンズオンで利用しているシミュレータでは、位置情報は表示されません。これはSORACOM Arcが簡易位置測位機能に対応していないためです。</p>
+<p><img style="width: 554.50px" src="img/6edae2ee8ab97402.png"><br>(注)ハンズオンで利用しているシミュレータでは、位置情報は表示されません。これはSORACOM Arcが簡易位置測位機能に対応していないためです。</p>
 
 
       </google-codelab-step>
@@ -555,7 +562,7 @@ Endpoint = サーバエンドポイント.</code></pre>
 <p>CONTENT TYPE : <strong>applicaiton/json</strong></p>
 <p>メタデータ : <strong>ON</strong></p>
 <p>DIRECTION : <strong>uplink</strong>のみチェック</p>
-<p class="image-container"><img style="width: 495.50px" src="img/78a24cd7d3f999f7.png"></p>
+<p class="image-container"><img style="width: 495.50px" src="img/3c9ce4ec08a1111.png"></p>
 <ol type="1" start="5">
 <li>入力し終わったら、[保存]をクリックします。</li>
 </ol>
@@ -575,7 +582,7 @@ Endpoint = サーバエンドポイント.</code></pre>
 <ol type="1" start="1">
 <li>[SORACOM Beam 設定]左の[&gt;]をクリックします。設定セクションが表示されます。</li>
 </ol>
-<p class="image-container"><img style="width: 519.50px" src="img/68d2fa84215b068a.png"></p>
+<p class="image-container"><img style="width: 519.50px" src="img/62a7b688b7d3239b.png"></p>
 <ol type="1" start="2">
 <li>左下の[+]ボタンをクリックし、[UDP → HTTP/HTTPS エントリポイント]をクリックします。</li>
 </ol>
@@ -587,19 +594,19 @@ Endpoint = サーバエンドポイント.</code></pre>
 <p>ホスト名 : <code>notify-api.line.me</code></p>
 <p>ポート番号 : <code>443</code></p>
 <p>パス : <code>/api/notify</code></p>
-<p class="image-container"><img style="width: 601.70px" src="img/ccca05395cd00c03.png"></p>
+<p class="image-container"><img style="width: 601.70px" src="img/854d2db86bcf08c9.png"></p>
 <ol type="1" start="4">
 <li>[ヘッダー操作]のカスタムヘッダにある[+]をクリックして、以下を入力します。</li>
 </ol>
 <p>アクション : 追加</p>
 <p>ヘッダー名 : <code>Authorization</code></p>
-<p>値 : <code>Bearer &lt;Line Notifyで取得したToken&gt;</code></p>
+<p>値 : <code>Bearer Line Notifyで取得したToken</code></p>
 <p class="image-container"><img style="width: 520.55px" src="img/c2f30baf6d9c7ea4.png"></p>
 <ol type="1" start="5">
 <li>入力し終わったら[作成]をクリックします。</li>
 <li>最後に[保存]をクリックします。以下になればOKです。</li>
 </ol>
-<p class="image-container"><img style="width: 601.70px" src="img/2c7f9bb92711bab6.png"></p>
+<p class="image-container"><img style="width: 601.70px" src="img/4a254063e2b10423.png"></p>
 <ol type="1" start="7">
 <li>[SORACOM Beam 設定]左の[&gt;]をクリックし、設定セクションを閉じます。</li>
 </ol>
@@ -627,6 +634,7 @@ Endpoint = サーバエンドポイント.</code></pre>
     
       <google-codelab-step label="後片付け" duration="0">
         <p>放置しておいても、課金が発生することはありませんが、後片付けを行います。</p>
+<p>すでに今回のハンズオン以外で、Orbit、Harvestなどのサービスをお使いの場合は、料金が発生しますので、不要の場合は削除を行ってください。</p>
 <p>バーチャルSIMについても、アカウントに１つだけは無料で保持できますので、そのままでも問題ありません。1つ以上お持ちの方のみ、不要の場合は削除を行ってください。</p>
 <h2 is-upgraded>WireGuardの削除</h2>
 <p>OS標準のアンインストール方法で削除します。</p>
@@ -637,21 +645,52 @@ Endpoint = サーバエンドポイント.</code></pre>
 <ol type="1" start="1">
 <li>LINE Notifyにログインし、マイページで今回使ったトークン横の[解除]をクリックします。</li>
 </ol>
-<p class="image-container"><img style="width: 601.70px" src="img/d32d746ecb810bd3.png"></p>
+<p class="image-container"><img style="width: 601.70px" src="img/8f9b4cc7dbfdc49.png"></p>
 <ol type="1" start="2">
 <li>出てきたダイアログで、問題なければ、[解除]をクリックします。マイページで表示がなくなっていれば削除完了です。</li>
 </ol>
 <p class="image-container"><img style="width: 409.59px" src="img/a103a3e68755f548.png"></p>
+<h2 is-upgraded>Soraletの削除</h2>
+<p>Soraletも残しておいても問題ありませんが、不要な場合は削除します。</p>
+<p>Soraletを削除するためには、まずOrbit側での設定を削除します。</p>
+<ol type="1" start="1">
+<li>SIMグループのSORACOM Orbitの設定セクションで、Orbitの設定を削除します。[削除]をクリックして、削除します。</li>
+</ol>
+<p class="image-container"><img style="width: 522.50px" src="img/8e6951e49d6b45c5.png"></p>
+<ol type="1" start="2">
+<li>問題なければそのまま[削除]をクリックします。これでOrbitの削除は完了です。</li>
+</ol>
+<p class="image-container"><img style="width: 478.50px" src="img/af92a459f05e3d.png"></p>
+<ol type="1" start="3">
+<li>続いてSoraletの設定画面にで、グループへの紐付けがなくなってる(Referred Groupsが空)と、WASM右端のゴミ箱アイコンがクリック可能になりますので、クリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 474.40px" src="img/129522e7c60ef6ed.png"></p>
+<ol type="1" start="4">
+<li>問題なければそのまま[削除する]をクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 488.50px" src="img/be5452a5a6694731.png"></p>
+<ol type="1" start="5">
+<li>「バージョンが削除されました」と表示されれば完了です。<br>Appendixを実施されて、Soraletのバージョンが複数ある場合は、同じように全て削除してください。</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/192f8c335c7f0df3.png"></p>
+<ol type="1" start="6">
+<li>バージョンが全て無くなったら、Solaret自体の削除が可能になりますので、右上の[削除]ボタンをクリックします。</li>
+</ol>
+<p class="image-container"><img style="width: 457.50px" src="img/39febba15d46ea0a.png"></p>
+<ol type="1" start="7">
+<li>問題なければそのまま[削除]をクリックします。これで完了です。</li>
+</ol>
+<p class="image-container"><img style="width: 465.50px" src="img/9c6f3bf448e71ba8.png"></p>
 <h2 is-upgraded>SIMグループの削除</h2>
 <p>SIMグループを削除するには、紐づいているSIMグループを削除してから削除する必要があります。</p>
 <ol type="1" start="1">
 <li>SIMの紐付け解除は、SIMグループの登録と同じ手順で、SIMを選択して、SIMの所属グループ変更画面を表示します。そこで、新しい所属グループで[グループ解除]を選択して、登録すれば解除されます。</li>
 </ol>
-<p class="image-container"><img style="width: 500.50px" src="img/601ac0ec93ab250f.png"></p>
+<p class="image-container"><img style="width: 500.50px" src="img/44937eedd56c7d45.png"></p>
 <ol type="1" start="2">
 <li>SIMグループの削除は、SIMグループ設定画面右上の[削除]をクリックします。</li>
 </ol>
-<p class="image-container"><img style="width: 503.50px" src="img/25ded7386228b4ec.png"></p>
+<p class="image-container"><img style="width: 503.50px" src="img/80268afd19a0b750.png"></p>
 <ol type="1" start="3">
 <li>問題なければそのまま[削除する]をクリックします。これで完了です。</li>
 </ol>
@@ -665,7 +704,7 @@ Endpoint = サーバエンドポイント.</code></pre>
 <ol type="1" start="2">
 <li>問題なければ、そのまま[解約する]をクリックしてください。</li>
 </ol>
-<p class="image-container"><img style="width: 494.50px" src="img/4950c70ecd5f2bea.png"></p>
+<p class="image-container"><img style="width: 494.50px" src="img/fa4c7183b9beddc8.png"></p>
 <ol type="1" start="3">
 <li>SIM一覧からバーチャルSIMがなくなっていればOKです。</li>
 </ol>
@@ -704,7 +743,7 @@ Endpoint = サーバエンドポイント.</code></pre>
 <li>選択が終わったら[アップロード]をクリックします。</li>
 <li>Version 2 が作成されることを確認できればOKです。</li>
 </ol>
-<p class="image-container"><img style="width: 508.50px" src="img/57f2a2c3c99e4462.png"></p>
+<p class="image-container"><img style="width: 508.50px" src="img/65b17862921f2ef7.png"></p>
 <h2 is-upgraded>動作確認</h2>
 <p>最初のOrbitの設定時に、Soraletのバージョンを$LATESTにしたので、自動的に最新バージョンである<strong>Version 2</strong>が利用できるようになっています。</p>
 <p>ボタンシュミレータをクリックし、以下のようなメッセージが送られるか試してみましょう！</p>
@@ -714,7 +753,7 @@ Endpoint = サーバエンドポイント.</code></pre>
 <ol type="1" start="1">
 <li>SORACOM LTE-M Button for Enterprise用のSIMを選択します。</li>
 </ol>
-<p class="image-container"><img style="width: 601.70px" src="img/b140d1ee245d8628.png"></p>
+<p class="image-container"><img style="width: 601.70px" src="img/78c2b1e37b8f6f0a.png"></p>
 <ol type="1" start="2">
 <li>画面上部の[操作 ▼]をクリックし、[所属グループ変更]をクリックします。</li>
 </ol>
@@ -722,11 +761,11 @@ Endpoint = サーバエンドポイント.</code></pre>
 <ol type="1" start="3">
 <li>[新しい所属グループ]からさきほど作成したSIMグループを選択し[グループ変更]をクリックします。</li>
 </ol>
-<p class="image-container"><img style="width: 502.50px" src="img/c970716f3c64eea5.png"></p>
+<p class="image-container"><img style="width: 502.50px" src="img/cf7ed6725d926489.png"></p>
 <ol type="1" start="4">
 <li>グループのところに、選択したグループ名表示されていれば完了です。</li>
 </ol>
-<p class="image-container"><img style="width: 596.50px" src="img/aff85b7c34fc3eaa.png"></p>
+<p class="image-container"><img style="width: 596.50px" src="img/62348df84a8535d5.png"></p>
 <h2 is-upgraded>簡易位置測位機能を有効にする</h2>
 <p>以下の2カ所を設定して、簡易位置測位機能を有効にします。</p>
 <ol type="1" start="1">
@@ -736,7 +775,7 @@ Endpoint = サーバエンドポイント.</code></pre>
 <ol type="1" start="2">
 <li>SORACOM Orbit設定の[簡易位置測位機能]</li>
 </ol>
-<p class="image-container"><img style="width: 516.13px" src="img/70086cd7a3216232.png"></p>
+<p class="image-container"><img style="width: 516.13px" src="img/2d69a24350a2aa67.png"></p>
 <ol type="1" start="3">
 <li>いずれも<strong>保存</strong>するのを忘れないようにしてください。</li>
 </ol>
@@ -765,11 +804,11 @@ Endpoint = サーバエンドポイント.</code></pre>
 <ol type="1" start="2">
 <li>assembly/index.tsの中身を1.で取得したindex.tsの中身と入れ替えます。</li>
 </ol>
-<p class="image-container"><img style="width: 520.50px" src="img/a177c67cb7e4469f.png"></p>
+<p class="image-container"><img style="width: 520.50px" src="img/686a352fd65e1d1c.png"></p>
 <ol type="1" start="3">
 <li>メッセージを変更する場合は、43行目にある以下のロジックを修正します。</li>
 </ol>
-<p class="image-container"><img style="width: 601.70px" src="img/830ca68b25e4642f.png"></p>
+<p class="image-container"><img style="width: 601.70px" src="img/b9cb067cce86caba.png"></p>
 <ol type="1" start="4">
 <li>デバイスの緯度経度が取れなかった場合に緯度0、経度0としていますが、これを変更する場合は、22行目、23行目にある以下のロジックを変更します。</li>
 </ol>
